@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import "tailwindcss";
+
+:root {
+  --background: #ffd6e7;
+  --foreground: #324052;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: 'Press Start 2P', cursive;
+  --font-mono: 'Press Start 2P', cursive;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Press Start 2P', cursive;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: #fff4b8;
+  color: #ff5c8a;
+}
+
+.pixel-shell,
+.pixel-panel,
+.day-card,
+.trainer-sprite,
+.task-row {
+  border-radius: 0;
+  box-shadow:
+    0 6px 0 #6c7a89,
+    0 14px 24px rgba(64, 76, 91, 0.16);
+}
+
+.pixel-shell {
+  image-rendering: pixelated;
+}
+
+.pixel-panel {
+  animation: panel-pop 420ms ease both;
+}
+
+.trainer-sprite {
+  animation: idle-bob 2.8s ease-in-out infinite;
+}
+
+.day-card {
+  animation: card-enter 420ms ease both;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.day-card:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 9px 0 #6c7a89,
+    0 18px 28px rgba(64, 76, 91, 0.18);
+}
+
+.task-row {
+  box-shadow: 3px 3px 0 #d6dbe3;
+}
+
+.task-row-complete {
+  opacity: 0.62;
+  background: #f6f7f9;
+}
+
+.task-row-complete .task-title {
+  color: #7d8794;
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+}
+
+.pixel-checkbox {
+  box-shadow: 2px 2px 0 #d6dbe3;
+  transition:
+    background 160ms ease,
+    transform 160ms ease;
+}
+
+.task-row:has(input:checked) .pixel-checkbox {
+  background: #b8e1a8;
+  transform: scale(1.08);
+}
+
+.progress-fill {
+  box-shadow: inset 0 -4px 0 rgba(45, 106, 79, 0.22);
+}
+
+.pixel-particles {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0.42;
+  background-image:
+    linear-gradient(#ffffff 2px, transparent 2px),
+    linear-gradient(90deg, #ffffff 2px, transparent 2px),
+    radial-gradient(circle, #fff4b8 2px, transparent 3px),
+    radial-gradient(circle, #7bdff2 2px, transparent 3px);
+  background-position:
+    0 0,
+    0 0,
+    18px 24px,
+    82px 56px;
+  background-size:
+    48px 48px,
+    48px 48px,
+    96px 96px,
+    132px 132px;
+  animation: particles-drift 12s linear infinite;
+}
+
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes panel-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes idle-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes particles-drift {
+  from {
+    background-position:
+      0 0,
+      0 0,
+      18px 24px,
+      82px 56px;
+  }
+
+  to {
+    background-position:
+      48px 48px,
+      48px 48px,
+      114px 120px,
+      214px 188px;
+  }
+}

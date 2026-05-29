@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Trainer Study Dashboard",
-  description: "A cozy pixel-art weekly study dashboard.",
+  description: "A cozy retro handheld weekly study dashboard.",
 };
 
 export default function RootLayout({

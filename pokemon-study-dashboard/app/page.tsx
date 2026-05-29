@@ -1,114 +1,31 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
-
-type StudyTask = {
-  id: string;
-  title: string;
-};
-
-type StudyDay = {
-  day: string;
-  badge: string;
-  border: string;
-  text: string;
-  bg: string;
-  tasks: StudyTask[];
-};
-
-const weeklyPlan: StudyDay[] = [
-  {
-    day: "MONDAY",
-    badge: "LV. 01",
-    border: "border-[#ffd166]",
-    text: "text-[#ff5c8a]",
-    bg: "bg-[#fff9d7]",
-    tasks: [
-      { id: "monday-physics", title: "Physics" },
-      { id: "monday-coding", title: "Coding" },
-      { id: "monday-math", title: "Math" },
-    ],
-  },
-  {
-    day: "TUESDAY",
-    badge: "LV. 02",
-    border: "border-[#7bdff2]",
-    text: "text-[#4ea8de]",
-    bg: "bg-[#effaff]",
-    tasks: [
-      { id: "tuesday-english", title: "English" },
-      { id: "tuesday-math", title: "Math" },
-      { id: "tuesday-notes", title: "Review Notes" },
-    ],
-  },
-  {
-    day: "WEDNESDAY",
-    badge: "LV. 03",
-    border: "border-[#95d5b2]",
-    text: "text-[#2d6a4f]",
-    bg: "bg-[#f0fff6]",
-    tasks: [
-      { id: "wednesday-chemistry", title: "Chemistry" },
-      { id: "wednesday-react", title: "React" },
-      { id: "wednesday-flashcards", title: "Flashcards" },
-    ],
-  },
-  {
-    day: "THURSDAY",
-    badge: "LV. 04",
-    border: "border-[#f7a8b8]",
-    text: "text-[#c94f7c]",
-    bg: "bg-[#fff1f6]",
-    tasks: [
-      { id: "thursday-biology", title: "Biology" },
-      { id: "thursday-reading", title: "Reading" },
-      { id: "thursday-quiz", title: "Mini Quiz" },
-    ],
-  },
-  {
-    day: "FRIDAY",
-    badge: "LV. 05",
-    border: "border-[#9ad0ec]",
-    text: "text-[#317ba8]",
-    bg: "bg-[#eef8ff]",
-    tasks: [
-      { id: "friday-algebra", title: "Algebra" },
-      { id: "friday-project", title: "Project" },
-      { id: "friday-summary", title: "Weekly Summary" },
-    ],
-  },
-  {
-    day: "WEEKEND",
-    badge: "REST",
-    border: "border-[#b8e1a8]",
-    text: "text-[#548c3f]",
-    bg: "bg-[#f6ffee]",
-    tasks: [
-      { id: "weekend-recap", title: "Recap Quest" },
-      { id: "weekend-plan", title: "Plan Next Week" },
-      { id: "weekend-focus", title: "Focus Session" },
-    ],
-  },
-];
-
-const allTaskIds = weeklyPlan.flatMap((day) => day.tasks.map((task) => task.id));
-const STORAGE_KEY = "trainer-study-dashboard-progress";
+import Link from "next/link";
+import { type CSSProperties, useEffect, useMemo, useRef, useState } from "react";
+import {
+  STUDY_STORAGE_KEY,
+  dayThemes,
+  getInitialStudyState,
+  getLevelFromExp,
+  normalizeStudyState,
+} from "./lib/studyData";
+import type { DayTheme, Quest, StudyState } from "./lib/studyData";
 
 export default function Home() {
-  const [completedTasks, setCompletedTasks] = useState<Record<string, boolean>>(
-    {},
+  const [studyState, setStudyState] = useState<StudyState>(
+    getInitialStudyState,
   );
   const hasLoadedSavedState = useRef(false);
 
   useEffect(() => {
     queueMicrotask(() => {
-      const savedTasks = window.localStorage.getItem(STORAGE_KEY);
+      const savedState = window.localStorage.getItem(STUDY_STORAGE_KEY);
 
-      if (savedTasks) {
+      if (savedState) {
         try {
-          setCompletedTasks(JSON.parse(savedTasks));
+          setStudyState(normalizeStudyState(JSON.parse(savedState)));
         } catch {
-          window.localStorage.removeItem(STORAGE_KEY);
+          window.localStorage.removeItem(STUDY_STORAGE_KEY);
         }
       }
 
@@ -121,141 +38,394 @@ export default function Home() {
       return;
     }
 
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(completedTasks));
-  }, [completedTasks]);
+    window.localStorage.setItem(STUDY_STORAGE_KEY, JSON.stringify(studyState));
+  }, [studyState]);
 
-  const completedCount = useMemo(
-    () => allTaskIds.filter((id) => completedTasks[id]).length,
-    [completedTasks],
+  const totalQuests = studyState.quests.length;
+  const completedQuests = useMemo(
+    () => studyState.quests.filter((quest) => quest.completed).length,
+    [studyState.quests],
   );
+  const weeklyExp = useMemo(
+    () =>
+      studyState.quests.reduce(
+        (total, quest) => total + (quest.completed ? quest.exp : 0),
+        0,
+      ),
+    [studyState.quests],
+  );
+  const possibleWeeklyExp = useMemo(
+    () => studyState.quests.reduce((total, quest) => total + quest.exp, 0),
+    [studyState.quests],
+  );
+  const progress = totalQuests
+    ? Math.round((completedQuests / totalQuests) * 100)
+    : 0;
+  const allComplete = totalQuests > 0 && completedQuests === totalQuests;
 
-  const totalTasks = allTaskIds.length;
-  const progress = Math.round((completedCount / totalTasks) * 100);
-  const exp = completedCount * 25;
-
-  function toggleTask(taskId: string) {
-    setCompletedTasks((current) => ({
+  function toggleQuest(questId: number) {
+    setStudyState((current) => ({
       ...current,
-      [taskId]: !current[taskId],
+      quests: current.quests.map((quest) =>
+        quest.id === questId
+          ? { ...quest, completed: !quest.completed }
+          : quest,
+      ),
     }));
   }
 
+  function startNewWeek() {
+    setStudyState((current) => {
+      const rewardExp = current.quests.reduce(
+        (total, quest) => total + quest.exp,
+        0,
+      );
+      const totalExp = current.stats.totalExp + rewardExp;
+
+      return {
+        quests: current.quests.map((quest) => ({
+          ...quest,
+          completed: false,
+        })),
+        stats: {
+          totalExp,
+          level: getLevelFromExp(totalExp),
+          streak: current.stats.streak + 1,
+          weeksCleared: current.stats.weeksCleared + 1,
+        },
+      };
+    });
+  }
+
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#ffd6e7] px-4 py-6 text-[#324052] sm:px-8">
-      <div className="pixel-particles" />
+    <main className="ds-page min-h-screen overflow-x-hidden px-3 py-5 text-[#20283a] sm:px-6">
+      <div className="mx-auto max-w-[1420px]">
+        <section className="ds-device">
+          <div className="ds-screen">
+            <header className="grid gap-5 lg:grid-cols-[1fr_0.98fr]">
+              <TrainerProfileCard stats={studyState.stats} />
+              <WeeklyProgressCard
+                completedQuests={completedQuests}
+                possibleWeeklyExp={possibleWeeklyExp}
+                progress={progress}
+                totalQuests={totalQuests}
+                weeklyExp={weeklyExp}
+              />
+            </header>
 
-      <section className="relative z-10 mx-auto max-w-6xl">
-        <div className="pixel-shell border-4 border-[#ff8fb1] bg-[#fff4b8] p-4 shadow-2xl sm:p-6">
-          <header className="mb-6 grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
-            <div className="pixel-panel border-4 border-[#f7a8b8] bg-[#fffaf0] p-5">
-              <p className="mb-3 text-[9px] text-[#4ea8de]">TRAINER PROFILE</p>
-              <div className="flex items-center gap-4">
-                <div className="trainer-sprite grid h-20 w-20 place-items-center border-4 border-[#6c7a89] bg-[#dff7ff] text-3xl">
-                  *
-                </div>
-                <div>
-                  <h1 className="text-lg leading-relaxed text-[#ff5c8a] sm:text-2xl">
-                    Study Dashboard
-                  </h1>
-                  <p className="mt-2 text-[9px] leading-5 text-[#64748b]">
-                    Cozy weekly quests for steady learning.
-                  </p>
-                </div>
-              </div>
-            </div>
+            {allComplete ? (
+              <CompletionScreen
+                possibleWeeklyExp={possibleWeeklyExp}
+                startNewWeek={startNewWeek}
+              />
+            ) : null}
 
-            <div className="pixel-panel border-4 border-[#7bdff2] bg-white p-5">
-              <div className="mb-3 flex items-center justify-between gap-3">
-                <p className="text-[9px] text-[#4ea8de]">WEEKLY PROGRESS</p>
-                <span className="rounded-none border-2 border-[#6c7a89] bg-[#fff4b8] px-2 py-1 text-[8px] text-[#ff5c8a]">
-                  {exp} EXP
-                </span>
-              </div>
-
-              <div className="h-5 border-4 border-[#6c7a89] bg-[#e9edf2] p-1">
-                <div
-                  className="progress-fill h-full bg-[#71d99e] transition-all duration-500 ease-out"
-                  style={{ width: `${progress}%` }}
+            <section className="mt-5 grid gap-4 lg:grid-cols-3">
+              {dayThemes.map((theme, index) => (
+                <QuestDayCard
+                  index={index}
+                  key={theme.key}
+                  quests={studyState.quests.filter(
+                    (quest) => quest.day === theme.key,
+                  )}
+                  theme={theme}
+                  toggleQuest={toggleQuest}
                 />
-              </div>
+              ))}
+            </section>
+          </div>
 
-              <div className="mt-4 grid grid-cols-3 gap-2 text-center text-[8px]">
-                <div className="border-2 border-[#ffd166] bg-[#fff9d7] p-2">
-                  <p className="text-[#ff5c8a]">{completedCount}</p>
-                  <p className="mt-1 text-[#64748b]">DONE</p>
-                </div>
-                <div className="border-2 border-[#95d5b2] bg-[#f0fff6] p-2">
-                  <p className="text-[#2d6a4f]">{totalTasks - completedCount}</p>
-                  <p className="mt-1 text-[#64748b]">LEFT</p>
-                </div>
-                <div className="border-2 border-[#7bdff2] bg-[#effaff] p-2">
-                  <p className="text-[#4ea8de]">{progress}%</p>
-                  <p className="mt-1 text-[#64748b]">SYNC</p>
-                </div>
-              </div>
-            </div>
-          </header>
+          <BottomNavigation active="trainer-pc" />
+        </section>
+      </div>
+    </main>
+  );
+}
 
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {weeklyPlan.map((studyDay, index) => {
-              const doneForDay = studyDay.tasks.filter(
-                (task) => completedTasks[task.id],
-              ).length;
+function TrainerProfileCard({
+  stats,
+}: {
+  stats: StudyState["stats"];
+}) {
+  return (
+    <section className="ds-panel ds-panel-red p-4 sm:p-5">
+      <PanelHeading title="TRAINER PROFILE" tone="red" />
 
-              return (
-                <article
-                  className={`day-card ${studyDay.bg} ${studyDay.border} border-4 p-4`}
-                  key={studyDay.day}
-                  style={{ animationDelay: `${index * 70}ms` }}
-                >
-                  <div className="mb-4 flex items-center justify-between gap-3">
-                    <h2 className={`text-sm ${studyDay.text}`}>{studyDay.day}</h2>
-                    <span className="border-2 border-[#6c7a89] bg-white px-2 py-1 text-[8px] text-[#64748b]">
-                      {studyDay.badge}
-                    </span>
-                  </div>
-
-                  <div className="space-y-3">
-                    {studyDay.tasks.map((task) => {
-                      const isDone = completedTasks[task.id];
-
-                      return (
-                        <label
-                          className={`task-row flex cursor-pointer items-center gap-3 border-2 border-[#d6dbe3] bg-white p-3 text-[10px] transition duration-200 hover:-translate-y-0.5 hover:border-[#ff8fb1] ${
-                            isDone ? "task-row-complete" : ""
-                          }`}
-                          key={task.id}
-                        >
-                          <input
-                            checked={Boolean(isDone)}
-                            className="peer sr-only"
-                            onChange={() => toggleTask(task.id)}
-                            type="checkbox"
-                          />
-                          <span
-                            aria-hidden="true"
-                            className="pixel-checkbox grid h-5 w-5 shrink-0 place-items-center border-2 border-[#6c7a89] bg-[#fff4b8] text-[9px] text-[#2d6a4f]"
-                          >
-                            {isDone ? "OK" : ""}
-                          </span>
-                          <span className="task-title leading-5">{task.title}</span>
-                        </label>
-                      );
-                    })}
-                  </div>
-
-                  <div className="mt-4 flex items-center justify-between text-[8px] text-[#64748b]">
-                    <span>
-                      {doneForDay}/{studyDay.tasks.length} QUESTS
-                    </span>
-                    <span>{doneForDay === studyDay.tasks.length ? "CLEAR!" : "READY"}</span>
-                  </div>
-                </article>
-              );
-            })}
+      <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center">
+        <div className="avatar-frame">
+          <div className="pixel-trainer" aria-label="Pixel avatar placeholder">
+            <span className="trainer-cap" />
+            <span className="trainer-head" />
+            <span className="trainer-body" />
+            <span className="trainer-leg trainer-leg-left" />
+            <span className="trainer-leg trainer-leg-right" />
           </div>
         </div>
-      </section>
-    </main>
+
+        <div className="min-w-0 flex-1">
+          <h1 className="text-[22px] leading-relaxed text-[#c42d3d] sm:text-[34px]">
+            Study Dashboard
+          </h1>
+          <p className="mt-3 max-w-lg text-[11px] leading-7 text-[#2f384a] sm:text-[14px]">
+            Cozy weekly quests for steady learning.
+          </p>
+
+          <div className="mt-4 grid grid-cols-3 gap-2 text-center text-[9px] text-[#344055]">
+            <StatChip label="LV" value={stats.level} />
+            <StatChip label="STREAK" value={stats.streak} />
+            <StatChip label="WEEKS" value={stats.weeksCleared} />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function WeeklyProgressCard({
+  completedQuests,
+  possibleWeeklyExp,
+  progress,
+  totalQuests,
+  weeklyExp,
+}: {
+  completedQuests: number;
+  possibleWeeklyExp: number;
+  progress: number;
+  totalQuests: number;
+  weeklyExp: number;
+}) {
+  return (
+    <section className="ds-panel ds-panel-blue p-4 sm:p-5">
+      <div className="flex items-center justify-between gap-3">
+        <PanelHeading title="WEEKLY PROGRESS" tone="blue" />
+        <span className="ds-badge ds-exp-badge">EXP</span>
+      </div>
+
+      <div className="mt-5">
+        <div className="progress-track">
+          <div
+            className="progress-bar"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+        <div className="mt-2 flex justify-between text-[8px] text-[#516072]">
+          <span>{weeklyExp} EXP</span>
+          <span>{possibleWeeklyExp} MAX</span>
+        </div>
+      </div>
+
+      <div className="mt-4 grid grid-cols-3 gap-3">
+        <ProgressStat
+          label="DONE"
+          tone="gold"
+          value={completedQuests}
+        />
+        <ProgressStat
+          label="LEFT"
+          tone="green"
+          value={Math.max(totalQuests - completedQuests, 0)}
+        />
+        <ProgressStat label="SYNC" tone="blue" value={`${progress}%`} />
+      </div>
+    </section>
+  );
+}
+
+function QuestDayCard({
+  index,
+  quests,
+  theme,
+  toggleQuest,
+}: {
+  index: number;
+  quests: Quest[];
+  theme: DayTheme;
+  toggleQuest: (questId: number) => void;
+}) {
+  const completed = quests.filter((quest) => quest.completed).length;
+  const clear = quests.length > 0 && completed === quests.length;
+
+  return (
+    <article
+      className="quest-card"
+      style={
+        {
+          "--day-bg": theme.bg,
+          "--day-border": theme.border,
+          "--day-accent": theme.accent,
+          "--day-dark": theme.dark,
+          animationDelay: `${index * 55}ms`,
+        } as CSSProperties
+      }
+    >
+      <div className="quest-card-header">
+        <div className="flex items-center gap-3">
+          <PokeOrb tone={theme.accent} />
+          <h2>{theme.label}</h2>
+        </div>
+        <span className="level-badge">{theme.badge}</span>
+      </div>
+
+      <div className="quest-list">
+        {quests.map((quest) => (
+          <QuestItem key={quest.id} quest={quest} toggleQuest={toggleQuest} />
+        ))}
+
+        {quests.length === 0 ? (
+          <div className="empty-quest">NO QUESTS SET</div>
+        ) : null}
+      </div>
+
+      <div className="quest-card-footer">
+        <span>
+          {completed}/{quests.length} QUESTS
+        </span>
+        <span>{clear ? "CLEAR!" : "READY"}</span>
+      </div>
+    </article>
+  );
+}
+
+function QuestItem({
+  quest,
+  toggleQuest,
+}: {
+  quest: Quest;
+  toggleQuest: (questId: number) => void;
+}) {
+  return (
+    <label className={`quest-item ${quest.completed ? "is-complete" : ""}`}>
+      <input
+        checked={quest.completed}
+        className="sr-only"
+        onChange={() => toggleQuest(quest.id)}
+        type="checkbox"
+      />
+      <span className="quest-checkbox" aria-hidden="true">
+        {quest.completed ? "" : ""}
+      </span>
+      <span className="quest-title">{quest.title}</span>
+      <span className="quest-exp">+{quest.exp}</span>
+    </label>
+  );
+}
+
+function BottomNavigation({ active }: { active: string }) {
+  const items = [
+    { id: "trainer-pc", label: "TRAINER PC", href: "/", enabled: true },
+    { id: "bag", label: "BAG", enabled: false },
+    { id: "quest-log", label: "QUEST LOG", href: "/quests", enabled: true },
+    { id: "pokedex", label: "POKEDEX", enabled: false },
+    { id: "options", label: "OPTIONS", enabled: false },
+  ];
+
+  return (
+    <nav className="ds-bottom-nav" aria-label="Main menu">
+      <div className="nav-buttons">
+        {items.map((item) => {
+          const isActive = active === item.id;
+          const buttonClass = `nav-button ${
+            isActive ? `is-active is-${item.id}-active` : ""
+          } ${item.enabled ? "" : "is-disabled"}`;
+
+          if (!item.enabled || !item.href) {
+            return (
+              <button
+                aria-disabled="true"
+                className={buttonClass}
+                disabled
+                key={item.id}
+                type="button"
+              >
+                <span className={`nav-icon nav-icon-${item.id}`} />
+                <span>{item.label}</span>
+              </button>
+            );
+          }
+
+          return (
+            <Link className={buttonClass} href={item.href} key={item.id}>
+              <span className={`nav-icon nav-icon-${item.id}`} />
+              <span>{item.label}</span>
+            </Link>
+          );
+        })}
+      </div>
+
+      <Link className="menu-orb-button" href="/quests" aria-label="Open quest setup">
+        <span className="menu-orb" />
+      </Link>
+    </nav>
+  );
+}
+
+function CompletionScreen({
+  possibleWeeklyExp,
+  startNewWeek,
+}: {
+  possibleWeeklyExp: number;
+  startNewWeek: () => void;
+}) {
+  return (
+    <section className="completion-panel">
+      <div>
+        <p className="text-[10px] text-[#3E8E5B]">WEEK CLEAR</p>
+        <h2 className="mt-2 text-[20px] leading-relaxed text-[#c42d3d]">
+          All quests completed!
+        </h2>
+        <p className="mt-2 text-[10px] leading-6 text-[#344055]">
+          Claim {possibleWeeklyExp} EXP and start a fresh study week.
+        </p>
+      </div>
+      <button className="primary-ds-button" onClick={startNewWeek} type="button">
+        START NEW WEEK
+      </button>
+    </section>
+  );
+}
+
+function PanelHeading({ title, tone }: { title: string; tone: "red" | "blue" }) {
+  return (
+    <div className="panel-heading">
+      <PokeOrb tone={tone === "red" ? "#c42d3d" : "#3C78D8"} />
+      <p>{title}</p>
+    </div>
+  );
+}
+
+function ProgressStat({
+  label,
+  tone,
+  value,
+}: {
+  label: string;
+  tone: "gold" | "green" | "blue";
+  value: number | string;
+}) {
+  return (
+    <div className={`progress-stat progress-stat-${tone}`}>
+      <PokeOrb tone={tone === "gold" ? "#D99A00" : tone === "green" ? "#3E8E5B" : "#3C78D8"} />
+      <strong>{value}</strong>
+      <span>{label}</span>
+    </div>
+  );
+}
+
+function StatChip({ label, value }: { label: string; value: number }) {
+  return (
+    <div className="stat-chip">
+      <strong>{value}</strong>
+      <span>{label}</span>
+    </div>
+  );
+}
+
+function PokeOrb({ tone }: { tone: string }) {
+  return (
+    <span
+      className="poke-orb"
+      style={{ "--orb-tone": tone } as CSSProperties}
+      aria-hidden="true"
+    />
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import {
   type CSSProperties,
   type FormEvent,
@@ -310,11 +311,23 @@ export default function WeeklyQuestPage() {
 
 function BottomNavigation({ active }: { active: string }) {
   const items = [
-    { id: "trainer-pc", label: "TRAINER PC", href: "/", enabled: true },
-    { id: "bag", label: "BAG", enabled: false },
-    { id: "quest-log", label: "QUEST LOG", href: "/quests", enabled: true },
-    { id: "pokedex", label: "POKEDEX", enabled: false },
-    { id: "options", label: "OPTIONS", enabled: false },
+    {
+      id: "trainer-pc",
+      label: "TRAINER PC",
+      href: "/",
+      enabled: true,
+      icon: "/ui/bar-trainer-pc.png",
+    },
+    { id: "bag", label: "BAG", enabled: false, icon: "/ui/bar-bag.png" },
+    {
+      id: "quest-log",
+      label: "QUEST LOG",
+      href: "/quests",
+      enabled: true,
+      icon: "/ui/bar-quest-log.png",
+    },
+    { id: "pokedex", label: "POKEDEX", enabled: false, icon: "/ui/bar-pokedex.png" },
+    { id: "options", label: "OPTIONS", enabled: false, icon: "/ui/bar-options.png" },
   ];
 
   return (
@@ -335,7 +348,13 @@ function BottomNavigation({ active }: { active: string }) {
                 key={item.id}
                 type="button"
               >
-                <span className={`nav-icon nav-icon-${item.id}`} />
+                <Image
+                  alt=""
+                  className="nav-icon-image"
+                  height={56}
+                  src={item.icon}
+                  width={56}
+                />
                 <span>{item.label}</span>
               </button>
             );
@@ -343,7 +362,13 @@ function BottomNavigation({ active }: { active: string }) {
 
           return (
             <Link className={buttonClass} href={item.href} key={item.id}>
-              <span className={`nav-icon nav-icon-${item.id}`} />
+              <Image
+                alt=""
+                className="nav-icon-image"
+                height={56}
+                src={item.icon}
+                width={56}
+              />
               <span>{item.label}</span>
             </Link>
           );
@@ -351,7 +376,13 @@ function BottomNavigation({ active }: { active: string }) {
       </div>
 
       <Link className="menu-orb-button" href="/quests" aria-label="Open quest setup">
-        <span className="menu-orb" />
+        <Image
+          alt=""
+          className="menu-orb-image"
+          height={130}
+          src="/ui/menu-orb.png"
+          width={130}
+        />
       </Link>
     </nav>
   );

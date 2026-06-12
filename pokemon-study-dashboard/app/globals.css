@@ -601,52 +601,78 @@ input {
 }
 
 .ds-bottom-nav {
+  position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 124px;
-  gap: 8px;
-  border-top: 5px solid #42566d;
+  grid-template-columns: minmax(0, 1fr) 58px;
+  gap: 0;
+  margin: 10px 72px 14px;
+  padding: 3px;
+  border: 3px solid #3a4d5e;
+  border-radius: 6px;
   background:
-    linear-gradient(#dae4ed, #aebfcd 62%, #71899f),
-    #aebfcd;
-  padding: 8px 10px;
-  box-shadow: inset 0 5px 0 rgba(255, 255, 255, 0.55);
+    linear-gradient(180deg, #c9d5de 0%, #adbdcb 52%, #95a9b9 100%),
+    #adbdcb;
+  box-shadow:
+    inset 1px 1px 0 #e6edf2,
+    inset 2px 2px 0 rgba(255, 255, 255, 0.55),
+    inset -1px -1px 0 #5a7082,
+    inset -2px -2px 0 rgba(52, 70, 88, 0.45),
+    0 3px 0 #243748;
+}
+
+.ds-bottom-nav::before {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border: 1px solid rgba(90, 112, 130, 0.45);
+  border-radius: 4px;
+  pointer-events: none;
 }
 
 .nav-buttons {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 8px;
+  gap: 0;
+  overflow: hidden;
+  border: 2px solid #5a6f80;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #c4d0da 0%, #a9b9c7 100%);
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.62),
+    inset -1px -1px 0 rgba(74, 92, 108, 0.28);
 }
 
 .nav-button {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  min-height: 64px;
-  border: 3px solid #526173;
-  border-radius: 8px;
+  gap: 5px;
+  min-height: 50px;
+  padding: 4px 5px;
+  border: none;
+  border-right: 2px solid #7f93a3;
+  border-radius: 0;
   background:
-    linear-gradient(#e7eff6, #c3d0dc),
-    #dbe5ec;
+    linear-gradient(180deg, #d2dde5 0%, #b5c4d0 100%),
+    #c4d0da;
   color: #344055;
   text-align: center;
   text-decoration: none;
-  box-shadow:
-    inset 0 0 0 2px rgba(255, 255, 255, 0.55),
-    0 4px 0 #526173;
-  font-size: 11px;
-  line-height: 1.25;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42);
+  font-size: 8px;
+  line-height: 1.1;
   transition:
-    transform 150ms ease,
-    box-shadow 150ms ease,
-    border-color 150ms ease,
+    filter 150ms ease,
     background 150ms ease;
+}
+
+.nav-button:last-child {
+  border-right: none;
 }
 
 .nav-button > span {
   display: inline-block;
-  padding-top: 1px;
+  padding-top: 0;
   white-space: nowrap;
 }
 
@@ -655,54 +681,46 @@ input {
 }
 
 .nav-button.is-quest-log-active {
-  border-color: #c42d3d;
-  background:
-    linear-gradient(#fffdf6, #ffe9e9),
-    #fffdf6;
+  background: #fffdf6;
   box-shadow:
-    inset 0 0 0 2px rgba(255, 255, 255, 0.68),
-    0 4px 0 #82323b,
-    0 0 12px rgba(196, 45, 61, 0.2);
+    inset 0 0 0 2px #c42d3d,
+    inset 0 1px 0 rgba(255, 255, 255, 0.82);
 }
 
 .nav-button.is-trainer-pc-active {
-  border-color: #2c6fa8;
   background:
-    linear-gradient(#6fb0dc, #2f78b7),
+    linear-gradient(180deg, #6a9fc8 0%, #3f78ad 58%, #2f6a9f 100%),
     #3f82ca;
   color: #fffdf6;
   text-shadow: 2px 2px 0 rgba(32, 40, 58, 0.28);
+  border-right-color: #4a7a9f;
   box-shadow:
-    inset 0 0 0 2px rgba(255, 255, 255, 0.42),
-    0 4px 0 #294766,
-    0 0 12px rgba(63, 130, 202, 0.24);
+    inset 0 1px 0 rgba(255, 255, 255, 0.34),
+    inset 0 -1px 0 rgba(32, 58, 88, 0.28);
 }
 
 .nav-button:hover {
-  transform: translateY(-2px);
+  filter: brightness(1.04);
 }
 
 .nav-button.is-disabled {
   cursor: not-allowed;
-  border-color: #7a8996;
   background:
-    linear-gradient(#d9e2ea, #b7c3ce),
-    #c9d4de;
+    linear-gradient(180deg, #c6d1da 0%, #aab9c5 100%),
+    #b8c5d0;
   color: #566575;
-  opacity: 0.72;
-  filter: grayscale(0.65);
-  box-shadow:
-    inset 0 0 0 2px rgba(255, 255, 255, 0.42),
-    0 4px 0 #6a7885;
+  opacity: 0.78;
+  filter: grayscale(0.55);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .nav-button.is-disabled:hover {
-  transform: none;
+  filter: grayscale(0.55);
 }
 
 .nav-icon-image {
-  width: 38px;
-  height: 38px;
+  width: 24px;
+  height: 24px;
   flex: 0 0 auto;
   object-fit: contain;
   image-rendering: pixelated;
@@ -725,21 +743,23 @@ input {
 
 .menu-orb-button {
   display: grid;
-  min-height: 74px;
+  min-height: 50px;
   place-items: center;
-  border: 4px solid #2c4967;
-  border-radius: 9px;
+  border: none;
+  border-left: 3px solid #4a6275;
+  border-radius: 0 4px 4px 0;
   background:
-    radial-gradient(circle at 35% 25%, rgba(255, 255, 255, 0.8), transparent 0 14%, transparent 15%),
-    linear-gradient(135deg, #dfe9f2, #718aa1);
+    radial-gradient(circle at 35% 25%, rgba(255, 255, 255, 0.45), transparent 0 14%, transparent 15%),
+    linear-gradient(180deg, #6f8799 0%, #516a7c 58%, #425c6e 100%);
   box-shadow:
-    inset 0 0 0 3px rgba(255, 255, 255, 0.48),
-    0 4px 0 #294766;
+    inset 1px 0 0 rgba(255, 255, 255, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 -1px 0 rgba(36, 55, 72, 0.32);
 }
 
 .menu-orb-image {
-  width: 84px;
-  height: 84px;
+  width: 38px;
+  height: 38px;
   object-fit: contain;
   image-rendering: pixelated;
   filter: drop-shadow(3px 3px 0 rgba(32, 40, 58, 0.2));
@@ -951,14 +971,27 @@ input {
 
   .ds-bottom-nav {
     grid-template-columns: 1fr;
+    margin: 8px 36px 12px;
   }
 
   .nav-buttons {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-radius: 4px;
+  }
+
+  .nav-button:nth-child(2n) {
+    border-right: none;
+  }
+
+  .nav-button:nth-child(-n + 4) {
+    border-bottom: 2px solid #7f93a3;
   }
 
   .menu-orb-button {
-    min-height: 70px;
+    min-height: 50px;
+    border-left: none;
+    border-top: 3px solid #4a6275;
+    border-radius: 0 0 4px 4px;
   }
 }
 
@@ -999,15 +1032,25 @@ input {
     grid-column: 2;
   }
 
+  .ds-bottom-nav {
+    margin: 8px 22px 12px;
+  }
+
   .nav-button {
-    min-height: 58px;
-    gap: 7px;
-    font-size: 9px;
+    min-height: 44px;
+    gap: 3px;
+    padding: 3px 3px;
+    font-size: 7px;
   }
 
   .nav-icon-image {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .menu-orb-image {
+    width: 34px;
+    height: 34px;
   }
 
   .setup-summary {

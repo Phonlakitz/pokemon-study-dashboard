@@ -1,502 +1,543 @@
-# DESIGN.md
-
-# Pokémon Inspired Study Dashboard — Design System
-
----
-
-# Design Philosophy
-
-This project is NOT a normal productivity dashboard.
-
-The goal is to create:
-"A cozy Nintendo DS inspired study operating system."
-
-The experience should feel:
-
-* nostalgic
-* emotional
-* soft
-* game-like
-* satisfying
-* comforting
-
-The user should feel like they are:
-
-* managing weekly quests
-* preparing for an adventure
-* leveling up through studying
-
-This project prioritizes:
-
-* atmosphere
-* emotional design
-* cozy interactions
-* visual identity
-
-Over:
-
-* enterprise UX
-* feature overload
-* modern SaaS aesthetics
+# Pokémon Study Dashboard
+Design System & Product Guidelines
 
 ---
 
-# Main Inspirations
+# Product Identity
 
-Inspired by:
+This project is NOT a todo app.
 
-* Pokémon Nintendo DS menus
-* Pokédex interfaces
-* Nintendo DS UI
-* retro handheld consoles
-* cozy pixel-art games
+This project is a cozy study operating system inspired by:
 
-DO NOT:
+- Pokémon Nintendo DS menus
+- Pokédex interfaces
+- Nintendo handheld consoles
+- retro RPG menu systems
+- cozy productivity tools
 
-* directly copy Pokémon UI
-* use copyrighted assets
-* mimic exact layouts
+The user should feel like:
 
-Instead:
-Create an original interface with similar emotional energy.
+"I am managing my trainer journey through studying."
 
----
+Studying = Quests
 
-# Core Visual Direction
+Progress = EXP
 
-The UI should feel:
-
-* chunky
-* tactile
-* layered
-* playful
-* soft
-* handheld-console-like
-
-The interface should feel:
-
-* touchable
-* button-based
-* cozy
-* retro
+Consistency = Leveling Up
 
 ---
 
-# Color Philosophy
+# Core Product Goals
 
-Colors should:
+The application should feel:
 
-* feel pastel
-* avoid harsh contrast
-* remain soft on the eyes
-* create emotional warmth
+- Cozy
+- Motivating
+- Rewarding
+- Nostalgic
+- Organized
+- Playful
+
+Never feel:
+
+- Corporate
+- SaaS-like
+- Minimalistic startup UI
+- Enterprise dashboard
+
+---
+
+# Visual Identity
+
+The interface should resemble:
+
+Nintendo DS Pokémon menus.
+
+Every screen should feel like:
+
+A menu inside a handheld RPG.
+
+---
+
+# Visual Keywords
+
+cozy
+
+pixel
+
+Nintendo DS
+
+Pokémon
+
+retro
+
+clean
+
+pastel
+
+friendly
+
+soft
+
+tactile
+
+layered
+
+game-like
+
+---
+
+# Color System
+
+Use soft Nintendo-inspired colors.
 
 Avoid:
 
-* neon colors
-* pure black
-* oversaturation
-* overly modern gradients
+- neon
+- oversaturated colors
+- pure black
+- modern gradients
 
 ---
 
-# Weekly Day Color System
-
-## Monday — Warm Yellow
+Monday
 
 Background:
 #FFF4CC
 
 Border:
-#E8B84A
+#E3B647
 
 Accent:
-#D99A00
-
-Mood:
-warm energetic beginning
-
-Inspired feeling:
-electric / sunshine / hopeful
+#D49400
 
 ---
 
-## Tuesday — Calm Blue
+Tuesday
 
 Background:
 #DDEEFF
 
 Border:
-#6FA8DC
+#7DAEEA
 
 Accent:
-#3C78D8
-
-Mood:
-focused studying
-
-Inspired feeling:
-Nintendo DS menus
+#4F82E3
 
 ---
 
-## Wednesday — Mint Green
+Wednesday
 
 Background:
 #DDF5E3
 
 Border:
-#72C38F
+#7CCB95
 
 Accent:
-#3E8E5B
-
-Mood:
-fresh productive energy
-
-Inspired feeling:
-grass-type cozy atmosphere
+#479A61
 
 ---
 
-## Thursday — Pastel Pink
+Thursday
 
 Background:
-#FFE0EA
+#FFE3EC
 
 Border:
-#E89AB3
+#E89AB4
 
 Accent:
-#D85C8A
-
-Mood:
-soft comfortable studying
-
-Inspired feeling:
-Pokémon Center warmth
+#D96B93
 
 ---
 
-## Friday — Soft Indigo
+Friday
 
 Background:
-#E5ECFF
+#E6EBFF
 
 Border:
-#7A95E8
+#8EA2F0
 
 Accent:
-#4B67C2
-
-Mood:
-mission completion energy
-
-Inspired feeling:
-trainer battle preparation
+#6179E8
 
 ---
 
-## Weekend — Cream Green
+Weekend
 
 Background:
 #EEF6E8
 
 Border:
-#9DC183
+#9FC58B
 
 Accent:
-#5D8A4A
-
-Mood:
-rest and reflection
-
-Inspired feeling:
-peaceful hometown vibes
+#5E9150
 
 ---
 
-# Typography Rules
+# Main Background
 
-## Pixel Fonts
-
-Use ONLY for:
-
-* titles
-* section labels
-* navigation
-* badges
-
-Recommended:
-
-* Press Start 2P
-* Pixelify Sans
-* VT323
-
-DO NOT:
-
-* use pixel fonts for paragraphs
-* use tiny unreadable text
-
----
-
-# Body Text
-
-Use cleaner readable fonts for:
-
-* quest descriptions
-* task text
-* paragraphs
-* UI details
-
-The app should remain comfortable for long study sessions.
-
----
-
-# Panel Design Rules
-
-Panels should:
-
-* feel layered
-* feel tactile
-* resemble Nintendo DS menus
+Nintendo DS inspired blue.
 
 Use:
 
-* rounded-2xl corners
-* thick borders
-* inset shadows
-* layered backgrounds
-* subtle gradients
+soft blue grid
+
+soft blue stripes
+
+subtle texture
+
+low contrast patterns
+
+Background must support the content.
+
+Never dominate the screen.
+
+---
+
+# Typography
+
+Primary Font:
+
+Pixelify Sans
+
+Fallback:
+
+VT323
+
+Silkscreen
+
+Tiny5
+
+---
+
+Rules
+
+Use pixel fonts only for:
+
+- Titles
+- Navigation
+- Labels
+- Status tags
+- Buttons
+
+Avoid long paragraphs in pixel fonts.
+
+---
+
+# Border System
+
+The entire application uses a layered border style.
+
+Panels should feel:
+
+- chunky
+- tactile
+- physical
+
+Every major container should have:
+
+- outer border
+- inner border
+- inset highlight
+
+Inspired by Nintendo DS UI frames.
+
+---
+
+# Corner Radius
+
+Use:
+
+12px - 20px
 
 Avoid:
 
-* flat modern cards
-* glassmorphism
-* ultra-minimalism
+sharp corners
 
----
+glassmorphism
 
-# Card Design Rules
-
-Quest cards should:
-
-* feel collectible
-* have personality
-* feel slightly raised
-
-Use:
-
-* soft shadows
-* layered borders
-* hover lift
-* subtle glow
-
-Hover behavior:
-
-* translateY(-2px)
-* soft border glow
-* slight brightness increase
-
----
-
-# Button Philosophy
-
-Buttons should feel:
-
-* chunky
-* physical
-* tactile
-* pressable
-
-Buttons should resemble:
-
-* Nintendo DS menu buttons
-* retro handheld interfaces
-
-Use:
-
-* inset shadows
-* layered borders
-* slight press animation
-
-Press effect:
-
-* scale(0.98)
-* darker shadow
-* lower brightness
+modern rounded-pill styles
 
 ---
 
 # Navigation Design
 
-Bottom navigation should feel:
+Bottom navigation is one of the most important parts of the app.
 
-* game menu-like
-* handheld console inspired
-* emotionally cozy
+It should feel like:
+
+a Nintendo DS game menu.
+
+Requirements:
+
+- chunky tabs
+- layered borders
+- compact spacing
+- pixel labels
+- centered icons
+
+Selected tab:
+
+- red accent border
+- light cream background
+- stronger contrast
+
+Inactive tabs:
+
+- soft blue-gray
+
+Never redesign navigation into a modern web navbar.
+
+---
+
+# Icon Design
+
+Icons should be:
+
+- pixel art
+- retro
+- clean
+- readable
+
+Use:
+
+32x32
+
+48x48
+
+64x64
+
+Do not mix styles.
+
+All icons must belong to the same pixel-art family.
+
+---
+
+# Dashboard Philosophy
+
+Dashboard = Mission Control
+
+The user should immediately see:
+
+- Progress
+- Weekly Quests
+- Current Status
+
+Hierarchy:
+
+1. Weekly Progress
+2. Daily Quest Cards
+3. Navigation
+
+---
+
+# Daily Quest Cards
+
+Quest cards should resemble:
+
+Pokémon menu panels.
 
 Include:
 
-* rounded menu tabs
-* selected glow
-* red active state
-* Poké Ball inspired central action button
+- Day icon
+- Day label
+- Quest list
+- Quest count
+- Status
 
-Navigation should NOT:
+Use:
 
-* resemble mobile banking apps
-* feel modern corporate
-* use sharp geometry
+soft pastel colors
+
+large spacing
+
+clean hierarchy
+
+subtle Poké Ball watermark
+
+---
+
+# Add Quest Screen
+
+Add Quest screen should feel like:
+
+Preparing missions before an adventure.
+
+Layout:
+
+LEFT
+Input Panel
+
+RIGHT
+Quest Queue
+
+BOTTOM
+Helpful Trainer Tips
+
+---
+
+# Form Controls
+
+Buttons should feel:
+
+Nintendo DS
+
+not web app
+
+not material design
+
+not iOS
+
+Use:
+
+thick borders
+
+inner shadows
+
+pixel labels
+
+compact heights
+
+---
+
+# Quest Difficulty System
+
+Easy
+
+Green
+
++5 EXP
+
+---
+
+Medium
+
+Yellow
+
++10 EXP
+
+---
+
+Hard
+
+Red
+
++20 EXP
+
+---
+
+Difficulty must be immediately recognizable.
+
+---
+
+# EXP System
+
+EXP is a core emotional mechanic.
+
+EXP bars should:
+
+- animate smoothly
+- feel rewarding
+- look RPG-inspired
+
+Avoid:
+
+plain HTML progress bars
 
 ---
 
 # Animation Philosophy
 
-Animations should:
+Subtle only.
 
-* be subtle
-* feel game-like
-* remain lightweight
+Duration:
 
-Use:
+150ms - 250ms
 
-* 150ms–250ms transitions
-* ease-out timing
-* smooth hover interactions
+Allowed:
 
-Avoid:
+hover
 
-* excessive motion
-* flashy modern effects
-* aggressive bounce animations
+button press
 
----
+quest completion
 
-# Task Interaction Rules
+progress fill
 
-When a task is completed:
-
-* checkbox animates
-* text receives line-through
-* opacity lowers slightly
-* completion feels rewarding
-
-The interaction should create:
-small dopamine feedback
-
----
-
-# EXP System Visual Direction
-
-EXP bars should:
-
-* feel rewarding
-* resemble RPG progression
-
-Use:
-
-* smooth animated fills
-* subtle gradients
-* glossy overlays
-* soft highlights
+tab switching
 
 Avoid:
 
-* flat web-style progress bars
+large motion
+
+modern floating effects
+
+excessive bouncing
 
 ---
 
-# Background Philosophy
-
-Backgrounds should:
-
-* support the UI
-* never overpower content
-
-Use:
-
-* subtle texture
-* low-contrast patterns
-* muted gradients
-
-Avoid:
-
-* noisy patterns
-* overly bright backgrounds
-* strong contrast textures
-
----
-
-# UI Density
-
-The dashboard should:
-
-* breathe comfortably
-* avoid overcrowding
-
-Spacing should feel:
-
-* relaxed
-* clean
-* cozy
-
-Use:
-
-* generous padding
-* balanced spacing
-* grouped UI sections
-
----
-
-# Emotional UX Goals
+# Emotional UX
 
 The user should feel:
 
-* calm
-* motivated
-* organized
-* emotionally rewarded
+"I completed something today."
 
-The app should encourage:
+Every completed quest should provide:
 
-* returning daily
-* enjoying study sessions
-* building consistency
+small satisfaction
 
-NOT through pressure,
-but through comfort and atmosphere.
+small dopamine
 
----
+small sense of progress
 
-# Development Philosophy
+The app should encourage consistency through comfort.
 
-Build gradually.
-
-DO NOT:
-
-* overengineer
-* rebuild repeatedly
-* chase perfection immediately
-
-Instead:
-
-* improve systems first
-* polish interactions second
-* refine visuals gradually
-
-Preserve:
-
-* atmosphere
-* identity
-* emotional consistency
-
-at every stage.
+Never through pressure.
 
 ---
 
-# Long-Term Identity
+# Future Features
 
-This project should eventually feel like:
+Future additions must match the Pokémon Study OS identity.
 
-"A cozy handheld RPG where studying is the adventure."
+Allowed:
+
+EXP
+
+Levels
+
+Streaks
+
+Badges
+
+Trainer Rank
+
+Companion System
+
+Focus Timer
+
+Weekly Reset
+
+Achievements
+
+Quest History
+
+Pokédex-style Statistics
+
+---
+
+# Golden Rule
+
+Whenever designing a new screen:
+
+Ask:
+
+"Would this feel natural inside a Nintendo DS Pokémon game menu?"
+
+If the answer is no,
+
+redesign it.

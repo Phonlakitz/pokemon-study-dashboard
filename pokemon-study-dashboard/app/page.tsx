@@ -99,12 +99,12 @@ export default function Home() {
   }
 
   return (
-    <main className="ds-page min-h-screen overflow-x-hidden px-3 py-5 text-[#20283a] sm:px-6">
-      <div className="mx-auto max-w-[1420px]">
-        <section className="ds-device">
-          <div className="ds-screen">
-            <header className="grid gap-5 lg:grid-cols-[1fr_0.98fr]">
-              <TrainerProfileCard stats={studyState.stats} />
+    <main className="ds-page dashboard-page min-h-screen overflow-x-hidden px-2 py-3 text-[#20283a] sm:px-4">
+      <div className="dashboard-shell mx-auto w-full max-w-[960px]">
+        <section className="ds-device dashboard-device">
+          <div className="ds-screen dashboard-screen">
+            <header className="dashboard-top-panels grid gap-3 md:grid-cols-[1fr_1fr]">
+              <TrainerProfileCard />
               <WeeklyProgressCard
                 completedQuests={completedQuests}
                 possibleWeeklyExp={possibleWeeklyExp}
@@ -121,7 +121,7 @@ export default function Home() {
               />
             ) : null}
 
-            <section className="mt-5 grid gap-4 lg:grid-cols-3">
+            <section className="dashboard-quest-grid mt-5 grid gap-4 lg:grid-cols-3">
               {dayThemes.map((theme, index) => (
                 <QuestDayCard
                   index={index}
@@ -143,39 +143,26 @@ export default function Home() {
   );
 }
 
-function TrainerProfileCard({
-  stats,
-}: {
-  stats: StudyState["stats"];
-}) {
+function TrainerProfileCard() {
   return (
-    <section className="ds-panel ds-panel-red p-4 sm:p-5">
+    <section className="ds-panel ds-panel-red dashboard-panel dashboard-profile-panel">
       <PanelHeading title="TRAINER PROFILE" tone="red" />
 
-      <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center">
-        <div className="avatar-frame">
-          <div className="pixel-trainer" aria-label="Pixel avatar placeholder">
-            <span className="trainer-cap" />
-            <span className="trainer-head" />
-            <span className="trainer-body" />
-            <span className="trainer-leg trainer-leg-left" />
-            <span className="trainer-leg trainer-leg-right" />
-          </div>
+      <div className="dashboard-profile-content">
+        <div
+          className="avatar-frame trainer-placeholder-frame"
+          aria-label="Trainer image placeholder"
+        >
+          <span className="trainer-placeholder-grid" aria-hidden="true" />
         </div>
 
         <div className="min-w-0 flex-1">
-          <h1 className="text-[22px] leading-relaxed text-[#c42d3d] sm:text-[34px]">
+          <h1 className="dashboard-title text-[22px] leading-relaxed text-[#c42d3d] sm:text-[34px]">
             Study Dashboard
           </h1>
-          <p className="mt-3 max-w-lg text-[11px] leading-7 text-[#2f384a] sm:text-[14px]">
+          <p className="dashboard-subtitle mt-3 max-w-lg text-[11px] leading-7 text-[#2f384a] sm:text-[14px]">
             Cozy weekly quests for steady learning.
           </p>
-
-          <div className="mt-4 grid grid-cols-3 gap-2 text-center text-[9px] text-[#344055]">
-            <StatChip label="LV" value={stats.level} />
-            <StatChip label="STREAK" value={stats.streak} />
-            <StatChip label="WEEKS" value={stats.weeksCleared} />
-          </div>
         </div>
       </div>
     </section>
@@ -196,26 +183,26 @@ function WeeklyProgressCard({
   weeklyExp: number;
 }) {
   return (
-    <section className="ds-panel ds-panel-blue p-4 sm:p-5">
-      <div className="flex items-center justify-between gap-3">
+    <section className="ds-panel ds-panel-blue dashboard-panel dashboard-progress-panel">
+      <div className="dashboard-panel-head flex items-center justify-between gap-3">
         <PanelHeading title="WEEKLY PROGRESS" tone="blue" />
         <span className="ds-badge ds-exp-badge">EXP</span>
       </div>
 
-      <div className="mt-5">
+      <div className="dashboard-progress-track-wrap mt-5">
         <div className="progress-track">
           <div
             className="progress-bar"
             style={{ width: `${progress}%` }}
           />
         </div>
-        <div className="mt-2 flex justify-between text-[8px] text-[#516072]">
+        <div className="dashboard-progress-scale mt-2 flex justify-between text-[8px] text-[#516072]">
           <span>{weeklyExp} EXP</span>
           <span>{possibleWeeklyExp} MAX</span>
         </div>
       </div>
 
-      <div className="mt-4 grid grid-cols-3 gap-3">
+      <div className="dashboard-progress-stats mt-4 grid grid-cols-3 gap-3">
         <ProgressStat
           label="DONE"
           tone="gold"
@@ -248,7 +235,7 @@ function QuestDayCard({
 
   return (
     <article
-      className="quest-card"
+      className={`quest-card quest-card-${theme.key}`}
       style={
         {
           "--day-bg": theme.bg,
@@ -306,7 +293,6 @@ function QuestItem({
         {quest.completed ? "" : ""}
       </span>
       <span className="quest-title">{quest.title}</span>
-      <span className="quest-exp">+{quest.exp}</span>
     </label>
   );
 }
@@ -333,7 +319,7 @@ function BottomNavigation({ active }: { active: string }) {
   ];
 
   return (
-    <nav className="ds-bottom-nav" aria-label="Main menu">
+    <nav className="ds-bottom-nav dashboard-bottom-nav" aria-label="Main menu">
       <div className="nav-buttons">
         {items.map((item) => {
           const isActive = active === item.id;
@@ -436,15 +422,6 @@ function ProgressStat({
   return (
     <div className={`progress-stat progress-stat-${tone}`}>
       <PokeOrb tone={tone === "gold" ? "#D99A00" : tone === "green" ? "#3E8E5B" : "#3C78D8"} />
-      <strong>{value}</strong>
-      <span>{label}</span>
-    </div>
-  );
-}
-
-function StatChip({ label, value }: { label: string; value: number }) {
-  return (
-    <div className="stat-chip">
       <strong>{value}</strong>
       <span>{label}</span>
     </div>

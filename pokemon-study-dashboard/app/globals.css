@@ -1065,3 +1065,1083 @@ input {
     justify-content: flex-end;
   }
 }
+
+/* Dashboard reference pass: compact DS task cards and bottom menu bar. */
+.dashboard-quest-grid {
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.dashboard-quest-grid .quest-card {
+  display: grid;
+  min-height: 188px;
+  grid-template-rows: 38px minmax(0, 1fr) 30px;
+  overflow: hidden;
+  border-width: 4px;
+  border-radius: 7px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.22), transparent 46%),
+    var(--day-bg);
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.72),
+    inset 0 -4px 0 rgba(38, 53, 73, 0.14),
+    0 3px 0 var(--day-dark),
+    0 7px 8px rgba(32, 40, 58, 0.14);
+  animation: none;
+  transition:
+    filter 150ms ease,
+    transform 150ms ease;
+}
+
+.dashboard-quest-grid .quest-card:hover {
+  transform: translateY(-2px);
+  filter: saturate(1.02);
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.72),
+    inset 0 -4px 0 rgba(38, 53, 73, 0.14),
+    0 4px 0 var(--day-dark),
+    0 8px 10px rgba(32, 40, 58, 0.16);
+}
+
+.dashboard-quest-grid .quest-card-monday {
+  --day-bg: #fff3a6 !important;
+  --day-border: #e3b647 !important;
+  --day-accent: #d49400 !important;
+  --day-dark: #8b6500 !important;
+}
+
+.dashboard-quest-grid .quest-card-tuesday {
+  --day-bg: #ffd8e5 !important;
+  --day-border: #e89ab4 !important;
+  --day-accent: #d96b93 !important;
+  --day-dark: #873b5f !important;
+}
+
+.dashboard-quest-grid .quest-card-wednesday {
+  --day-bg: #d8f2d9 !important;
+  --day-border: #7ccb95 !important;
+  --day-accent: #479a61 !important;
+  --day-dark: #286c42 !important;
+}
+
+.dashboard-quest-grid .quest-card-thursday {
+  --day-bg: #ffd9bd !important;
+  --day-border: #e8a16f !important;
+  --day-accent: #d97942 !important;
+  --day-dark: #8b4b25 !important;
+}
+
+.dashboard-quest-grid .quest-card-friday {
+  --day-bg: #d9efff !important;
+  --day-border: #7daeea !important;
+  --day-accent: #4f82e3 !important;
+  --day-dark: #285a9a !important;
+}
+
+.dashboard-quest-grid .quest-card-weekend {
+  --day-bg: #ead3f1 !important;
+  --day-border: #b988ca !important;
+  --day-accent: #8d58a6 !important;
+  --day-dark: #5d3975 !important;
+}
+
+.dashboard-quest-grid .quest-card-header {
+  min-height: 38px;
+  padding: 6px 8px 5px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0.16)),
+    color-mix(in srgb, var(--day-bg) 82%, var(--day-border));
+  border-bottom: 2px solid color-mix(in srgb, var(--day-border) 72%, #ffffff);
+  color: var(--day-dark);
+}
+
+.dashboard-quest-grid .quest-card-header > div {
+  min-width: 0;
+  gap: 8px;
+}
+
+.dashboard-quest-grid .quest-card-header h2 {
+  font-size: 11px;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
+.dashboard-quest-grid .quest-card-header .poke-orb {
+  width: 25px;
+  height: 25px;
+  border-width: 3px;
+}
+
+.dashboard-quest-grid .quest-card-header .poke-orb::before {
+  inset: 6px;
+  border-width: 2px;
+}
+
+.dashboard-quest-grid .level-badge {
+  min-width: 58px;
+  padding: 5px 7px;
+  border: 3px solid rgba(82, 97, 115, 0.68);
+  border-radius: 5px;
+  background:
+    linear-gradient(#fffef8, #f2f0e8),
+    #fffdf6;
+  font-size: 7px;
+  line-height: 1;
+}
+
+.dashboard-quest-grid .quest-list {
+  display: grid;
+  align-content: start;
+  min-height: 0;
+  margin: 8px 8px 0;
+  overflow: hidden;
+  border: 3px solid color-mix(in srgb, var(--day-border) 58%, #ffffff);
+  border-radius: 5px;
+  background: #fffef9;
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.72),
+    inset 0 -3px 0 rgba(82, 97, 115, 0.06);
+}
+
+.dashboard-quest-grid .quest-list::after {
+  right: -10px;
+  bottom: -20px;
+  width: 54px;
+  height: 54px;
+  border-width: 8px;
+  opacity: 0.44;
+}
+
+.dashboard-quest-grid .quest-item {
+  grid-template-columns: 20px minmax(0, 1fr);
+  gap: 7px;
+  min-height: 30px;
+  border-bottom: 2px solid rgba(82, 97, 115, 0.14);
+  padding: 4px 8px;
+  font-size: 9px;
+  line-height: 1.2;
+}
+
+.dashboard-quest-grid .quest-checkbox {
+  width: 17px;
+  height: 17px;
+  border-width: 3px;
+  border-radius: 1px;
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.54),
+    1px 1px 0 rgba(82, 97, 115, 0.2);
+}
+
+.dashboard-quest-grid .quest-title {
+  align-self: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dashboard-quest-grid .quest-card-footer {
+  align-items: center;
+  min-height: 30px;
+  padding: 6px 10px 7px;
+  color: #344055;
+  font-size: 7px;
+  line-height: 1;
+}
+
+.dashboard-bottom-nav {
+  grid-template-columns: minmax(0, 1fr) 64px;
+  margin: 6px 54px 10px;
+  padding: 4px;
+  border: 4px solid #36495a;
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, #d4dde4 0%, #aebdcc 50%, #8298ab 100%),
+    #aebdcc;
+  box-shadow:
+    inset 2px 2px 0 rgba(255, 255, 255, 0.7),
+    inset -2px -2px 0 rgba(44, 62, 78, 0.36),
+    0 4px 0 #253746;
+}
+
+.dashboard-bottom-nav .nav-buttons {
+  border: 3px solid #586c7d;
+  border-radius: 5px 0 0 5px;
+  background: #9eafbd;
+}
+
+.dashboard-bottom-nav .nav-button {
+  min-height: 46px;
+  gap: 5px;
+  padding: 4px 6px;
+  border-right: 2px solid #758797;
+  background:
+    linear-gradient(180deg, #d5dee5 0%, #b5c4d0 48%, #a3b3bf 100%),
+    #b8c5d0;
+  color: #3c4855;
+  font-size: 7px;
+  line-height: 1;
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.62),
+    inset -1px -2px 0 rgba(69, 84, 98, 0.18);
+}
+
+.dashboard-bottom-nav .nav-button > span {
+  padding-top: 2px;
+}
+
+.dashboard-bottom-nav .nav-icon-image {
+  width: 23px;
+  height: 23px;
+  filter: drop-shadow(1px 1px 0 rgba(32, 40, 58, 0.2));
+}
+
+.dashboard-bottom-nav .nav-button.is-active {
+  transform: translateY(1px);
+}
+
+.dashboard-bottom-nav .nav-button.is-trainer-pc-active {
+  background:
+    linear-gradient(180deg, #5f9bd0 0%, #3f7fb7 58%, #2e6fa5 100%),
+    #3f82ca;
+  color: #fffdf6;
+  box-shadow:
+    inset 0 0 0 2px #244965,
+    inset 2px 2px 0 rgba(255, 255, 255, 0.28),
+    inset -2px -3px 0 rgba(28, 52, 76, 0.28);
+}
+
+.dashboard-bottom-nav .nav-button.is-quest-log-active {
+  background:
+    linear-gradient(180deg, #fffdf6 0%, #f5f0e8 100%),
+    #fffdf6;
+  box-shadow:
+    inset 0 0 0 3px #c42d3d,
+    inset 2px 2px 0 rgba(255, 255, 255, 0.8),
+    inset -2px -2px 0 rgba(130, 50, 59, 0.18);
+}
+
+.dashboard-bottom-nav .nav-button.is-disabled {
+  background:
+    linear-gradient(180deg, #c9d4dd 0%, #aebbc6 100%),
+    #b8c5d0;
+  color: #5a6774;
+  opacity: 0.78;
+}
+
+.dashboard-bottom-nav .menu-orb-button {
+  min-height: 46px;
+  border-left: 4px solid #34495d;
+  border-radius: 0 5px 5px 0;
+  background:
+    linear-gradient(180deg, #70889b 0%, #526b7d 56%, #405a6d 100%),
+    #526b7d;
+  box-shadow:
+    inset 2px 2px 0 rgba(255, 255, 255, 0.18),
+    inset -2px -2px 0 rgba(26, 42, 55, 0.28);
+}
+
+.dashboard-bottom-nav .menu-orb-image {
+  width: 43px;
+  height: 43px;
+}
+
+@media (max-width: 980px) {
+  .dashboard-quest-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dashboard-bottom-nav {
+    grid-template-columns: 1fr;
+    margin: 8px 36px 12px;
+  }
+
+  .dashboard-bottom-nav .nav-buttons {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-radius: 5px;
+  }
+
+  .dashboard-bottom-nav .menu-orb-button {
+    min-height: 46px;
+    border-top: 4px solid #34495d;
+    border-left: none;
+    border-radius: 0 0 5px 5px;
+  }
+
+  .dashboard-bottom-nav .menu-orb-image {
+    width: 38px;
+    height: 38px;
+  }
+}
+
+@media (max-width: 640px) {
+  .dashboard-quest-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .dashboard-quest-grid .quest-card {
+    min-height: 184px;
+  }
+
+  .dashboard-quest-grid .quest-card-header h2 {
+    font-size: 11px;
+  }
+
+  .dashboard-bottom-nav {
+    margin: 8px 18px 12px;
+    padding: 4px;
+  }
+
+  .dashboard-bottom-nav .nav-button {
+    min-height: 44px;
+    gap: 4px;
+    padding: 4px;
+    font-size: 7px;
+  }
+
+  .dashboard-bottom-nav .nav-icon-image {
+    width: 21px;
+    height: 21px;
+  }
+}
+
+/* Compact Nintendo DS dashboard shell pass. */
+.dashboard-page {
+  display: grid;
+  align-items: start;
+}
+
+.dashboard-shell {
+  max-width: 960px;
+}
+
+.dashboard-device {
+  border-width: 5px;
+  border-radius: 24px;
+  box-shadow:
+    inset 0 0 0 4px rgba(255, 255, 255, 0.62),
+    inset 0 -8px 0 rgba(58, 79, 99, 0.2),
+    0 10px 0 #294766,
+    0 18px 26px rgba(18, 45, 78, 0.32);
+}
+
+.dashboard-screen {
+  margin: 16px 16px 0;
+  min-height: 0;
+  border-width: 4px;
+  border-radius: 18px 18px 8px 8px;
+  padding: 12px;
+  box-shadow:
+    inset 0 0 0 3px #f5f0df,
+    inset 0 0 0 6px rgba(96, 90, 78, 0.16);
+}
+
+.dashboard-top-panels {
+  gap: 10px;
+}
+
+.dashboard-panel {
+  min-height: 150px;
+  border-width: 4px;
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.78),
+    inset 0 -5px 0 rgba(82, 97, 115, 0.1),
+    0 4px 0 #526173,
+    0 8px 12px rgba(32, 40, 58, 0.14);
+}
+
+.dashboard-panel .panel-heading {
+  gap: 8px;
+  font-size: 10px;
+  line-height: 1.2;
+}
+
+.dashboard-panel .panel-heading .poke-orb {
+  width: 26px;
+  height: 26px;
+  border-width: 3px;
+}
+
+.dashboard-panel .panel-heading .poke-orb::before {
+  inset: 6px;
+  border-width: 2px;
+}
+
+.dashboard-profile-content {
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.dashboard-profile-panel .avatar-frame {
+  width: 94px;
+  height: 94px;
+  border-width: 3px;
+  border-radius: 7px;
+}
+
+.dashboard-profile-panel .pixel-trainer {
+  transform: scale(0.7);
+}
+
+.dashboard-title {
+  font-size: 18px !important;
+  line-height: 1.35 !important;
+}
+
+.dashboard-subtitle {
+  max-width: 290px;
+  margin-top: 8px !important;
+  font-size: 9px !important;
+  line-height: 1.65 !important;
+}
+
+.dashboard-profile-stats {
+  display: none;
+}
+
+.dashboard-progress-panel .ds-exp-badge {
+  min-width: 56px;
+  padding: 7px 10px;
+  border-width: 3px;
+  border-radius: 5px;
+  font-size: 9px;
+}
+
+.dashboard-progress-track-wrap {
+  margin-top: 12px !important;
+}
+
+.dashboard-progress-panel .progress-track {
+  height: 28px;
+  border-width: 4px;
+  border-radius: 6px;
+  padding: 4px;
+}
+
+.dashboard-progress-stats {
+  gap: 8px !important;
+  margin-top: 10px !important;
+}
+
+.dashboard-progress-stats .progress-stat {
+  min-height: 58px;
+  grid-template-columns: 24px minmax(0, 1fr);
+  gap: 4px;
+  border-width: 3px;
+  border-radius: 6px;
+  padding: 6px;
+  font-size: 8px;
+}
+
+.dashboard-progress-stats .progress-stat .poke-orb {
+  width: 24px;
+  height: 24px;
+}
+
+.dashboard-quest-grid {
+  gap: 9px !important;
+  margin-top: 10px !important;
+}
+
+.dashboard-quest-grid .quest-card {
+  min-height: 168px;
+  grid-template-rows: 34px minmax(0, 1fr) 27px;
+  border-width: 4px;
+}
+
+.dashboard-quest-grid .quest-card-header {
+  min-height: 34px;
+  padding: 5px 7px 4px;
+}
+
+.dashboard-quest-grid .quest-card-header > div {
+  gap: 6px;
+}
+
+.dashboard-quest-grid .quest-card-header h2 {
+  font-size: 9px;
+}
+
+.dashboard-quest-grid .quest-card-header .poke-orb {
+  width: 23px;
+  height: 23px;
+}
+
+.dashboard-quest-grid .level-badge {
+  min-width: 50px;
+  padding: 4px 6px;
+  font-size: 6px;
+}
+
+.dashboard-quest-grid .quest-list {
+  margin: 6px 7px 0;
+  border-width: 3px;
+}
+
+.dashboard-quest-grid .quest-list::after {
+  width: 46px;
+  height: 46px;
+  right: -9px;
+  bottom: -18px;
+  border-width: 7px;
+}
+
+.dashboard-quest-grid .quest-item {
+  grid-template-columns: 18px minmax(0, 1fr);
+  min-height: 26px;
+  gap: 6px;
+  padding: 3px 7px;
+  font-size: 8px;
+}
+
+.dashboard-quest-grid .quest-checkbox {
+  width: 15px;
+  height: 15px;
+  border-width: 2px;
+}
+
+.dashboard-quest-grid .quest-card-footer {
+  min-height: 27px;
+  padding: 5px 9px 6px;
+  font-size: 6px;
+}
+
+.dashboard-bottom-nav {
+  grid-template-columns: minmax(0, 1fr) 56px;
+  margin: 5px 38px 10px;
+  padding: 4px;
+  border-width: 4px;
+  border-radius: 7px;
+}
+
+.dashboard-bottom-nav .nav-buttons {
+  border-width: 3px;
+}
+
+.dashboard-bottom-nav .nav-button {
+  min-height: 40px;
+  gap: 4px;
+  padding: 3px 5px;
+  font-size: 6px;
+}
+
+.dashboard-bottom-nav .nav-icon-image {
+  width: 20px;
+  height: 20px;
+}
+
+.dashboard-bottom-nav .menu-orb-button {
+  min-height: 40px;
+  border-left-width: 4px;
+}
+
+.dashboard-bottom-nav .menu-orb-image {
+  width: 38px;
+  height: 38px;
+}
+
+@media (max-width: 980px) {
+  .dashboard-shell {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 760px) {
+  .dashboard-top-panels {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .dashboard-screen {
+    margin: 10px 10px 0;
+    padding: 10px;
+  }
+
+  .dashboard-profile-content {
+    align-items: center;
+    text-align: center;
+  }
+
+  .dashboard-profile-panel .avatar-frame {
+    width: 86px;
+    height: 86px;
+  }
+
+  .dashboard-title {
+    font-size: 16px !important;
+  }
+
+  .dashboard-subtitle {
+    margin-inline: auto;
+    font-size: 8px !important;
+  }
+
+  .dashboard-quest-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-quest-grid .quest-card {
+    min-height: 164px;
+  }
+
+  .dashboard-bottom-nav {
+    margin: 7px 16px 10px;
+  }
+
+  .dashboard-bottom-nav .nav-button {
+    min-height: 40px;
+    font-size: 6px;
+  }
+}
+
+/* Trainer Profile compact DS panel */
+.dashboard-profile-panel {
+  min-height: 132px;
+  overflow: hidden;
+  padding: 10px 12px 11px;
+  border-width: 4px;
+  border-radius: 10px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 252, 244, 0.98)),
+    #fffdf6;
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.9),
+    inset 0 -5px 0 rgba(195, 45, 61, 0.08),
+    0 4px 0 #526173,
+    0 8px 12px rgba(32, 40, 58, 0.15);
+}
+
+.dashboard-profile-panel .panel-heading {
+  gap: 8px;
+  min-height: 24px;
+  font-size: 10px;
+  line-height: 1.1;
+  letter-spacing: 0;
+}
+
+.dashboard-profile-panel .panel-heading .poke-orb {
+  width: 24px;
+  height: 24px;
+  border-width: 3px;
+}
+
+.dashboard-profile-panel .panel-heading .poke-orb::before {
+  inset: 6px;
+  border-width: 2px;
+}
+
+.dashboard-profile-content {
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  margin-top: 8px !important;
+}
+
+.dashboard-profile-panel .avatar-frame.trainer-placeholder-frame {
+  position: relative;
+  width: 84px;
+  height: 84px;
+  border: 4px solid #526173;
+  border-radius: 7px;
+  background:
+    linear-gradient(135deg, #f3f7f8 0%, #d7e2e8 100%),
+    #dce6eb;
+  box-shadow:
+    inset 0 0 0 3px rgba(255, 255, 255, 0.82),
+    inset 0 -5px 0 rgba(82, 97, 115, 0.12),
+    3px 3px 0 rgba(32, 40, 58, 0.24);
+}
+
+.trainer-placeholder-grid {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 3px;
+  background:
+    linear-gradient(rgba(82, 97, 115, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(82, 97, 115, 0.08) 1px, transparent 1px),
+    radial-gradient(circle at 50% 42%, rgba(255, 255, 255, 0.65), transparent 32%);
+  background-size:
+    12px 12px,
+    12px 12px,
+    100% 100%;
+}
+
+.dashboard-profile-panel .dashboard-title {
+  font-size: 18px !important;
+  line-height: 1.22 !important;
+  letter-spacing: 0;
+}
+
+.dashboard-profile-panel .dashboard-subtitle {
+  max-width: 270px;
+  margin-top: 6px !important;
+  font-size: 9px !important;
+  line-height: 1.55 !important;
+}
+
+@media (max-width: 640px) {
+  .dashboard-profile-panel {
+    min-height: auto;
+    padding: 10px;
+  }
+
+  .dashboard-profile-content {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 9px;
+    text-align: center;
+  }
+
+  .dashboard-profile-panel .avatar-frame.trainer-placeholder-frame {
+    width: 76px;
+    height: 76px;
+  }
+
+  .dashboard-profile-panel .dashboard-title {
+    font-size: 16px !important;
+  }
+
+  .dashboard-profile-panel .dashboard-subtitle {
+    max-width: 230px;
+    margin-inline: auto;
+    font-size: 8px !important;
+  }
+}
+
+/* Reference proportion lock: match the provided 948px DS dashboard frame. */
+.dashboard-page {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.dashboard-shell {
+  max-width: 960px !important;
+}
+
+.dashboard-device {
+  border-width: 5px;
+  border-radius: 24px;
+}
+
+.dashboard-screen {
+  margin: 8px 16px 0 !important;
+  padding: 8px !important;
+  border-width: 4px;
+  border-radius: 18px 18px 7px 7px;
+}
+
+.dashboard-top-panels {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 8px !important;
+}
+
+.dashboard-panel {
+  min-height: 146px;
+  padding: 9px;
+  border-width: 4px;
+  border-radius: 8px;
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.86),
+    inset 0 -4px 0 rgba(82, 97, 115, 0.1),
+    0 3px 0 #526173,
+    0 6px 8px rgba(32, 40, 58, 0.14);
+}
+
+.dashboard-panel .panel-heading {
+  gap: 7px;
+  min-height: 24px;
+  font-size: 10px;
+  line-height: 1;
+}
+
+.dashboard-panel .panel-heading .poke-orb {
+  width: 24px;
+  height: 24px;
+}
+
+.dashboard-profile-content {
+  display: grid !important;
+  grid-template-columns: 86px minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  margin-top: 7px !important;
+}
+
+.dashboard-profile-panel .avatar-frame.trainer-placeholder-frame {
+  width: 86px;
+  height: 86px;
+  border-width: 4px;
+}
+
+.dashboard-profile-panel .dashboard-title {
+  font-size: 20px !important;
+  line-height: 1.2 !important;
+}
+
+.dashboard-profile-panel .dashboard-subtitle {
+  max-width: 260px;
+  margin-top: 8px !important;
+  font-size: 9px !important;
+  line-height: 1.65 !important;
+}
+
+.dashboard-progress-panel {
+  min-height: 146px;
+}
+
+.dashboard-progress-panel .ds-exp-badge {
+  min-width: 52px;
+  padding: 6px 9px;
+  border-width: 3px;
+  border-radius: 5px;
+  font-size: 8px;
+}
+
+.dashboard-progress-track-wrap {
+  margin-top: 8px !important;
+}
+
+.dashboard-progress-scale {
+  display: none !important;
+}
+
+.dashboard-progress-panel .progress-track {
+  height: 24px;
+  border-width: 4px;
+  border-radius: 5px;
+  padding: 3px;
+}
+
+.dashboard-progress-stats {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px !important;
+  margin-top: 8px !important;
+}
+
+.dashboard-progress-stats .progress-stat {
+  min-height: 50px !important;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 4px;
+  padding: 5px;
+  border-width: 3px;
+  border-radius: 5px;
+  font-size: 7px;
+  line-height: 1.1;
+}
+
+.dashboard-progress-stats .progress-stat .poke-orb {
+  width: 22px;
+  height: 22px;
+}
+
+.dashboard-progress-stats .progress-stat .poke-orb::before {
+  inset: 5px;
+}
+
+.dashboard-progress-stats .progress-stat span {
+  margin-top: 3px;
+}
+
+.dashboard-quest-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 8px !important;
+  margin-top: 8px !important;
+}
+
+.dashboard-quest-grid .quest-card {
+  min-height: 184px;
+  grid-template-rows: 34px minmax(0, 1fr) 28px;
+  border-width: 4px;
+  border-radius: 7px;
+}
+
+.dashboard-quest-grid .quest-card-header {
+  min-height: 34px;
+  padding: 5px 8px 4px;
+}
+
+.dashboard-quest-grid .quest-card-header h2 {
+  font-size: 10px;
+  line-height: 1.1;
+}
+
+.dashboard-quest-grid .quest-card-header .poke-orb {
+  width: 24px;
+  height: 24px;
+}
+
+.dashboard-quest-grid .level-badge {
+  min-width: 52px;
+  padding: 4px 6px;
+  border-width: 3px;
+  border-radius: 4px;
+  font-size: 6px;
+}
+
+.dashboard-quest-grid .quest-list {
+  margin: 7px 8px 0;
+  border-width: 3px;
+  border-radius: 5px;
+}
+
+.dashboard-quest-grid .quest-item {
+  grid-template-columns: 18px minmax(0, 1fr);
+  min-height: 31px;
+  gap: 6px;
+  padding: 4px 8px;
+  font-size: 8px;
+  line-height: 1.2;
+}
+
+.dashboard-quest-grid .quest-checkbox {
+  width: 16px;
+  height: 16px;
+  border-width: 2px;
+}
+
+.dashboard-quest-grid .quest-card-footer {
+  min-height: 28px;
+  padding: 6px 9px 7px;
+  font-size: 6px;
+}
+
+.dashboard-bottom-nav {
+  grid-template-columns: minmax(0, 1fr) 66px !important;
+  margin: 5px 38px 9px !important;
+  padding: 4px;
+  border-width: 4px;
+  border-radius: 7px;
+}
+
+.dashboard-bottom-nav .nav-buttons {
+  grid-template-columns: 1.22fr 0.86fr 1fr 1fr 1fr !important;
+  border-width: 3px;
+  border-radius: 5px 0 0 5px !important;
+}
+
+.dashboard-bottom-nav .nav-button {
+  min-height: 52px;
+  gap: 5px;
+  padding: 4px 5px;
+  border-right: 2px solid #758797 !important;
+  border-bottom: 0 !important;
+  font-size: 7px;
+}
+
+.dashboard-bottom-nav .nav-button:last-child {
+  border-right: 0 !important;
+}
+
+.dashboard-bottom-nav .nav-icon-image {
+  width: 24px;
+  height: 24px;
+}
+
+.dashboard-bottom-nav .menu-orb-button {
+  min-height: 52px;
+  border-top: 0 !important;
+  border-left: 4px solid #34495d !important;
+  border-radius: 0 5px 5px 0 !important;
+}
+
+.dashboard-bottom-nav .menu-orb-image {
+  width: 50px;
+  height: 50px;
+}
+
+@media (max-width: 860px) {
+  .dashboard-top-panels {
+    grid-template-columns: 1fr !important;
+  }
+
+  .dashboard-quest-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .dashboard-bottom-nav {
+    grid-template-columns: 1fr !important;
+    margin: 7px 22px 10px !important;
+  }
+
+  .dashboard-bottom-nav .nav-buttons {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    border-radius: 5px !important;
+  }
+
+  .dashboard-bottom-nav .nav-button:nth-child(2n) {
+    border-right: 0 !important;
+  }
+
+  .dashboard-bottom-nav .nav-button:nth-child(-n + 4) {
+    border-bottom: 2px solid #758797 !important;
+  }
+
+  .dashboard-bottom-nav .menu-orb-button {
+    border-top: 4px solid #34495d !important;
+    border-left: 0 !important;
+    border-radius: 0 0 5px 5px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .dashboard-screen {
+    margin: 8px 10px 0 !important;
+    padding: 8px !important;
+  }
+
+  .dashboard-profile-content {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .dashboard-quest-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .dashboard-bottom-nav {
+    margin: 7px 12px 10px !important;
+  }
+}
+
+/* Final sizing correction for the 948 x 658 reference viewport. */
+.dashboard-progress-stats {
+  align-items: stretch;
+}
+
+.dashboard-progress-stats .progress-stat {
+  height: 50px;
+  min-height: 50px !important;
+  grid-template-rows: 1fr 1fr;
+  align-items: center;
+}
+
+.dashboard-progress-stats .progress-stat .poke-orb {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  align-self: center;
+  justify-self: center;
+  margin: 0;
+}
+
+.dashboard-progress-stats .progress-stat strong {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: end;
+}
+
+.dashboard-progress-stats .progress-stat > span:not(.poke-orb) {
+  grid-column: 2;
+  grid-row: 2;
+  align-self: start;
+  margin-top: 3px;
+}
+
+.dashboard-bottom-nav {
+  margin-bottom: 3px !important;
+}
